@@ -7,7 +7,8 @@ export default class App extends Component {
   state = {
     isLoaded: false,
     lat: null,
-    long: null
+    long: null,
+    error: null
   };
 
   componentDidMount = () => {
@@ -21,16 +22,18 @@ export default class App extends Component {
         });
       },
       error => {
-        console.log(error);
+        this.setState({
+          error: error.message
+        });
       }
     );
   };
 
-com
+
 
 
   render(){
-    const {isLoaded} = this.state;
+    const {isLoaded, error} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
@@ -40,6 +43,7 @@ com
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Data Loaded</Text>
+            {error ? <Text>error</Text> : null}
           </View>
           
         )}
