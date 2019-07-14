@@ -1,15 +1,19 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {StyleSheet, Text, View} from "react-native";
 import {LinearGradient} from "expo";
 import {Ionicons} from "@expo/vector-icons";
 
-export default class Weather extends Component{
-    render(){
+export default function Weather({temperature}){
+    // render(){
+    //     const {} = 
+
+
         return(
             <LinearGradient colors={["#00C6FB", "#005BEA"]} style={styles.container}> 
                 <View style={styles.upper}>
                     <Ionicons name="ios-rainy" size={144} color="white" />
-                    <Text style={styles.temperature}>45º</Text>
+                    <Text style={styles.temperature}>{temperature}º</Text>
                 </View>
                 <View style={styles.lower}>
                     <Text style={styles.title}>
@@ -21,7 +25,12 @@ export default class Weather extends Component{
                 </View>
             </LinearGradient>
         );
-    }
+    
+};
+
+Weather.prototype = {
+    // weatherCase: PropTypes.string.isRequired,
+    temperature: PropTypes.number.isRequired
 };
 
 const styles = StyleSheet.create({

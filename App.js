@@ -14,14 +14,16 @@ export default class App extends Component {
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log(position);
-        this.setState({
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-          isLoaded: true
-        });
+        // console.log(position);
+        // this.setState({
+        //   lat: position.coords.latitude,
+        //   long: position.coords.longitude,
+        //   isLoaded: true
+        // });
+        this.getWeather(position.coords.latitude, position.coords.longitude);
       },
       error => {
+        console.log(error);
         this.setState({
           error: error.message
         });
@@ -29,21 +31,35 @@ export default class App extends Component {
     );
   };
 
-
+  getWeather = (lat, long) => {
+    fetch(`https://samples.openweathermap.org/data/2.5/weather?lat={lat}&lon={long}&appid=b6907d289e10d714a6e88b30761fae22`)
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        this.setState({
+          temperature: json.main.temp,
+          name: json.weather[0].main,
+          isLoaded: true
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
 
   render(){
-    const {isLoaded, error} = this.state;
+    const {isLoaded, error, temperature} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
         {isLoaded ? (
-          <Weather />
+          <Weather 
+            temperature={Math.floor(temperature - 273.15)}
+          />
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Data Loaded</Text>
-            {error ? <Text>error</Text> : null}
+            {error ? <Text>{error.message}</Text> : null}
           </View>
           
         )}
