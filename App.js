@@ -14,9 +14,20 @@ export default class App extends Component {
     navigator.geolocation.getCurrentPosition(
       position => {
         console.log(position);
-          }
-    )
+        this.setState({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+          isLoaded: true
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   };
+
+com
+
 
   render(){
     const {isLoaded} = this.state;
