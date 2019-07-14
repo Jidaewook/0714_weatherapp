@@ -23,14 +23,12 @@ export default class App extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   loading: {
@@ -41,6 +39,6 @@ const styles = StyleSheet.create({
   }, 
   loadingText: {
     fontSize: 38, 
-    marginBottom: 2
+    marginBottom: 100
   }
 });
